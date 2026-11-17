@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Найди баги на странице – тренажер для тестировщика</title>
+<meta name="description" content="Учебная страница интернет-магазина с заложенными ошибками интерфейса. Найдите все баги: проверка сразу, без регистрации.">
+<link rel="canonical" href="https://artichokeee.github.io/qa-tools/bugs/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Инструменты тестировщика – Rusau Learn">
+<meta property="og:title" content="Найди баги на странице">
+<meta property="og:description" content="Страница интернет-магазина с заложенными ошибками интерфейса. Сколько найдете?">
+<meta property="og:url" content="https://artichokeee.github.io/qa-tools/bugs/">
+<meta property="og:image" content="https://artichokeee.github.io/qa-tools/docs/bugs-desktop.png">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="../assets/mark.png">
+<link rel="preload" href="../assets/fonts/golos.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="bugs.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [
+  {"@type": "WebApplication", "name": "Найди баги на странице", "url": "https://artichokeee.github.io/qa-tools/bugs/", "description": "Учебная страница интернет-магазина с заложенными ошибками интерфейса и проверкой находок в браузере.", "applicationCategory": "EducationalApplication", "operatingSystem": "Любой современный браузер", "inLanguage": "ru", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": 0, "priceCurrency": "RUB"}, "author": {"@type": "Person", "name": "Артем Русов", "alternateName": "Artsiom Rusau", "url": "https://artichokeee.github.io/"}, "publisher": {"@type": "EducationalOrganization", "name": "Rusau Learn", "url": "https://learn.rusau.net"}},
+  {"@type": "BreadcrumbList", "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Инструменты тестировщика", "item": "https://artichokeee.github.io/qa-tools/"},
+    {"@type": "ListItem", "position": 2, "name": "Найди баги", "item": "https://artichokeee.github.io/qa-tools/bugs/"}
+  ]}
+]}</script>
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#mock">К странице с багами</a>
+<header class="top"><div class="wrap top-row">
+  <a class="brand" href="../"><img src="../assets/mark.png" alt="" aria-hidden="true" width="36" height="47"><span><b>Rusau Learn</b><small>инструменты тестировщика</small></span></a>
+  <nav aria-label="Разделы"><a href="../">Инструменты</a><a href="./" aria-current="page">Найди баги</a></nav>
+  <a class="btn btn-sm" href="https://learn.rusau.net/?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">Платформа</a>
+</div></header>
+
+<main id="main">
+<section class="wrap hero">
+  <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Инструменты</a> / <span>Найди баги</span></nav>
+  <h1>Найди баги на странице</h1>
+  <p class="lead">Ниже – страница интернет-магазина с ошибками в интерфейсе. Нажмите на элемент, который выглядит неправильно: если там баг, он засчитается.</p>
+</section>
+
+<section class="wrap bg" aria-labelledby="bg-title">
+  <h2 id="bg-title" class="sr-only">Страница с багами</h2>
+  <div class="bg-grid">
+    <div class="bg-frame">
+      <div class="bg-bar-top" aria-hidden="true"><i></i><i></i><i></i><span>my-shop.example</span></div>
+      <div class="mock" id="mock" tabindex="-1">
+        <p class="mk-title" data-spot="title" style="text-align:left">Мой магазин</p>
+        <div class="mk-grid">
+          <div class="mk-product">
+            <div class="mk-img" data-spot="p1-img" style="background:#ddf">Товар</div>
+            <h3 class="mk-name" data-spot="p1-name">Товар 1</h3>
+            <button type="button" class="mk-btn" data-spot="p1-buy" style="background:#000">Купить</button>
+          </div>
+          <div class="mk-product">
+            <div class="mk-img" data-spot="p2-img" style="background:#dad">Товар</div>
+            <h3 class="mk-name" data-spot="p2-name" style="text-align:left">Товар 2</h3>
+            <button type="button" class="mk-btn" data-spot="p2-buy">Купить</button>
+          </div>
+          <div class="mk-product">
+            <div class="mk-img" data-spot="p3-img" style="background:#fdd">Товар</div>
+            <h3 class="mk-name" data-spot="p3-name">Товар 3</h3>
+            <button type="button" class="mk-btn" data-spot="p3-buy">BUY</button>
+          </div>
+          <div class="mk-product">
+            <div class="mk-img" data-spot="p4-img" style="background:#dfd">Товар</div>
+            <h3 class="mk-name" data-spot="p4-name">Product 4</h3>
+            <button type="button" class="mk-btn" data-spot="p4-buy" style="margin-top:25px">Купить</button>
+          </div>
+          <div class="mk-product">
+            <div class="mk-img" data-spot="p5-img" style="background:#fdf">Товар</div>
+            <h3 class="mk-name" data-spot="p5-name">Товар 5</h3>
+            <button type="button" class="mk-btn" data-spot="p5-buy">Купить</button>
+            <button type="button" class="mk-btn" data-spot="p5-buy2" style="margin-top:5px">Купить</button>
+          </div>
+          <div class="mk-product">
+            <div class="mk-img" data-spot="p6-img" style="background:#eee;color:#aaa">Нет изображения</div>
+            <h3 class="mk-name" data-spot="p6-name">Товар 6</h3>
+            <button type="button" class="mk-btn" data-spot="p6-buy" aria-disabled="true" style="background:#ccc;color:#666;cursor:default">Купить</button>
+          </div>
+          <div class="mk-product">
+            <div class="mk-img" data-spot="p7-img" style="background:#fdd">Товар</div>
+            <h3 class="mk-name" data-spot="p7-name">Товар 7</h3>
+            <button type="button" class="mk-btn" data-spot="p7-buy">Купить</button>
+          </div>
+          <div class="mk-product">
+            <div class="mk-img" data-spot="p8-img" style="background:#ddf">Товар</div>
+            <h3 class="mk-name" data-spot="p8-name">Товар 8</h3>
+            <button type="button" class="mk-btn" data-spot="p8-buy">Купить</button>
+          </div>
+          <div class="mk-product">
+            <div class="mk-img" data-spot="p9-img" style="background:#ffd">Товар</div>
+            <h3 class="mk-name" data-spot="p9-name">Товар 9</h3>
+            <button type="button" class="mk-btn" data-spot="p9-buy">Купить</button>
+          </div>
+        </div>
+        <div class="mk-foot" data-spot="footer">© 2024 Все права защищены</div>
+      </div>
+    </div>
+
+    <aside class="bg-side" aria-label="Прогресс">
+      <div class="panel bg-progress">
+        <p class="bg-count" id="bg-count">Найдено 0 из 10</p>
+        <div class="bg-track" role="progressbar" aria-label="Найдено багов" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div class="bg-fill" id="bg-bar"></div></div>
+        <p class="bg-more">В тренажере таких страниц бесконечно: новые генерирует ИИ и разбирает ваши находки – <a href="https://learn.rusau.net/catalog/prakticheskie-trenazhery?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-bugs">курс с тренажерами</a>.</p>
+      </div>
+      <p class="status" id="bg-status" aria-live="polite"></p>
+      <div class="panel">
+        <p class="cap">Найденные баги</p>
+        <ol class="bg-list" id="bg-list"></ol>
+        <div class="notice bg-done" id="bg-done" hidden>Все баги на странице найдены.</div>
+        <div class="bg-actions">
+          <button class="btn btn-ghost btn-sm" type="button" id="bg-reveal">Показать ответы</button>
+          <button class="btn-link" type="button" id="bg-reset">Начать заново</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="wrap page" aria-labelledby="bg-how">
+  <h2 id="bg-how">На что смотреть</h2>
+  <ul class="bg-how">
+    <li>Одинаковые элементы должны выглядеть одинаково: цвет, выравнивание, отступы.</li>
+    <li>Текст – на одном языке и без опечаток.</li>
+    <li>Нет лишних и пропавших элементов, все кнопки работают.</li>
+    <li>Данные на странице актуальны, ничего не вылезает за края.</li>
+  </ul>
+</section>
+
+<section class="band"><div class="wrap">
+  <p>Новые страницы с багами и разбор каждой находки – в курсе <a href="https://learn.rusau.net/catalog/prakticheskie-trenazhery?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-bugs">"Тестирование ПО. Тренажеры для тестировщика с ИИ"</a> на платформе Rusau Learn.</p>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap foot-row">
+  <div>
+    <p class="foot-brand"><img src="../assets/mark.png" alt="" aria-hidden="true" width="30" height="40"> Rusau Learn</p>
+    <p>Инструменты собрал Артем Русов – инженер по тестированию и автор курсов. Курсы идут на платформе для обучения тестировщиков <a href="https://learn.rusau.net/?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">Rusau Learn</a>.</p>
+  </div>
+  <div><p class="foot-cap">Инструменты</p><ul>
+    <li><a href="../sql/">SQL-песочница</a></li>
+    <li><a href="../crossword/">Кроссворд</a></li>
+    <li><a href="../bounds/">Граничные значения</a></li>
+    <li><a href="./">Найди баги</a></li>
+    <li><a href="../">Все инструменты</a></li>
+  </ul></div>
+  <div><p class="foot-cap">Ссылки</p><ul>
+    <li><a href="https://learn.rusau.net/catalog/prakticheskie-trenazhery?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-bugs">Курс с тренажерами</a></li>
+    <li><a href="https://github.com/artichokeee/qa-tools">Исходный код на GitHub</a></li>
+    <li><a href="https://artichokeee.github.io/">Артем Русов</a></li>
+  </ul></div>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,62 @@
+/* "Найди баги": макет чужого сайта в рамке браузера. Общий облик – в ../style.css. */
+.bg { padding-top: 20px; }
+.bg-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 28px; align-items: start; }
+.bg-frame { border: 1px solid var(--line-strong); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: #fff; min-width: 0; }
+.bg-bar-top { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: var(--sunken); border-bottom: 1px solid var(--line); }
+.bg-bar-top i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); }
+.bg-bar-top span { margin-left: 10px; padding: 1px 12px; border-radius: 999px; background: var(--raised); font: 12px var(--mono); color: var(--ink-3); }
+
+/* Макет нарочно не в облике платформы: это "чужая" страница с системным шрифтом. */
+.mock { position: relative; padding: 20px 20px 34px; background: #fff; color: #222; font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.4; overflow: visible; }
+.mock:focus { outline: none; }
+.mk-title { margin: 0 0 16px; font-size: 24px; font-weight: bold; max-width: none; }
+.mk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+.mk-product { border: 1px solid #ddd; border-radius: 8px; padding: 14px; background: #fafafa; text-align: center; }
+.mk-img { width: 110px; height: 110px; margin: 6px auto; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 14px; }
+.mk-name { margin: 10px 0; font: 600 16px Arial, Helvetica, sans-serif; color: #222; }
+.mk-btn { display: inline-block; padding: 6px 10px; border: 0; border-radius: 4px; background: #4caf50; color: #fff; font: 14px Arial, Helvetica, sans-serif; cursor: pointer; }
+.mk-foot { position: absolute; bottom: -9px; left: 10px; font-size: 10px; color: gray; max-width: none; }
+
+.mock [data-spot] { cursor: pointer; transition: box-shadow .15s; -webkit-tap-highlight-color: transparent; }
+.mock [data-spot]:hover { box-shadow: 0 0 0 2px rgb(155 44 31 / .25); }
+.mock [data-spot]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mock [data-spot].found { position: relative; box-shadow: 0 0 0 3px #c0392b; }
+.mock [data-spot].found:not(button) { background-color: rgb(192 57 43 / .08); }
+.mock [data-spot].found::after { content: attr(data-order); position: absolute; top: -10px; right: -10px; width: 22px; height: 22px; border-radius: 50%; background: #c0392b; color: #fff; font: bold 12px/22px Arial, sans-serif; text-align: center; z-index: 2; }
+.mock [data-spot].missed { position: relative; outline: 2px dashed #c0392b; outline-offset: 2px; }
+.mock [data-spot].miss { animation: bg-miss .4s; }
+/* Подвал нарочно стоит абсолютно и вылезает за край – отметка не должна возвращать его в поток. */
+.mock .mk-foot.found, .mock .mk-foot.missed { position: absolute; }
+@keyframes bg-miss { 0%, 100% { transform: none; } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+
+.bg-side { display: flex; flex-direction: column; gap: 12px; }
+.bg-side .panel + .panel { margin-top: 0; }
+.panel p.bg-count { margin: 0 0 8px; font-family: var(--carved); font-size: 24px; font-weight: 700; color: var(--ink); }
+.bg-track { height: 10px; border-radius: 999px; background: var(--sunken); border: 1px solid var(--line); overflow: hidden; }
+.bg-fill { height: 100%; width: 0; background: var(--btn); transition: width .3s; }
+.panel p.bg-more { margin-top: 10px; font-size: 14px; }
+.bg-side .status { margin: 0; color: var(--ink-2); }
+.bg-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.bg-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--ink-2); max-width: none; }
+.bg-no { flex: none; width: 22px; height: 22px; border-radius: 50%; background: #c0392b; color: #fff; font-size: 12px; font-weight: 700; line-height: 22px; text-align: center; }
+.bg-list li.missed .bg-no { background: transparent; color: #c0392b; border: 1px dashed #c0392b; line-height: 20px; }
+.bg-list li.bg-empty { color: var(--ink-3); }
+.bg-done { margin-top: 12px; }
+.bg-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 14px; }
+.bg-how { padding-left: 20px; color: var(--ink-2); }
+.bg-how li { margin: 6px 0; }
+
+@media (prefers-reduced-motion: reduce) { .mock [data-spot].miss { animation: none; } .bg-fill { transition: none; } }
+@media (max-width: 1000px) {
+  /* Счетчик – над макетом, остальное – под ним. */
+  .bg-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .bg-side { display: contents; }
+  .bg-progress { order: -1; }
+}
+@media (max-width: 720px) {
+  .mock { padding: 14px 12px 30px; }
+  .mk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .mk-product { padding: 10px 8px; }
+  .mk-img { width: 84px; height: 84px; font-size: 12px; }
+  .mk-name { font-size: 15px; margin: 8px 0; }
+}
