@@ -1,0 +1,212 @@
+/*
+ * Облик платформы Rusau Learn: пергамент, темный свод шапки и подвала, золотые кнопки, резные
+ * заголовки Podkova. Цвета – токены платформы (те же, что на artichokeee.github.io). Одна палитра,
+ * без переключения темы и без градиентов.
+ *
+ * Все пути относительные: сайт живет в подпапке /qa-tools/ на GitHub Pages.
+ */
+@font-face { font-family: "Golos Text"; src: url("assets/fonts/golos.woff2") format("woff2"); font-weight: 400 900; font-display: swap; }
+@font-face { font-family: "Podkova"; src: url("assets/fonts/podkova.woff2") format("woff2"); font-weight: 400 800; font-display: swap; }
+:root {
+  --surface: #efe8da; --raised: #faf5ea; --sunken: #e4d9c4;
+  --line: rgb(90 62 26 / 0.16); --line-strong: rgb(90 62 26 / 0.3);
+  --ink: #241a10; --ink-2: #54432d; --ink-3: #6a5740;
+  --accent: #7f520c; --accent-hover: #67410a;
+  --btn: #d9ad33; --btn-hover: #ecc451; --btn-ink: #1a1408; --gold-soft: #f0e2be; --ok: #1f6f47;
+  --danger: #9b2c1f; --danger-soft: #f6e0d8;
+  --top: #171326; --top-ink: #ece2ce; --top-ink-2: #a99cc4;
+  --code-key: #7f520c; --code-name: #1f6f47; --code-str: #5b3d8f; --code-note: #6a5740;
+  --shadow: 0 1px 2px rgb(74 48 12 / 0.1), 0 3px 12px rgb(74 48 12 / 0.08);
+  --radius: 14px; --radius-sm: 10px;
+  --font: "Golos Text", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --carved: "Podkova", Georgia, "Times New Roman", serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--surface); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.6; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: var(--accent-hover); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.top :focus-visible, .foot :focus-visible { outline-color: var(--btn); }
+img { max-width: 100%; height: auto; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { font-family: var(--carved); color: var(--ink); text-wrap: balance; }
+h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.12; margin: 0 0 12px; font-weight: 700; }
+h2 { font-size: clamp(24px, 3vw, 30px); line-height: 1.2; margin: 0 0 10px; font-weight: 700; }
+h3 { font-size: 19px; line-height: 1.3; margin: 0; }
+p, li { max-width: 72ch; }
+.lead { font-size: 19px; color: var(--ink-2); margin: 0; }
+.muted { color: var(--ink-3); font-size: 15px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 10; background: var(--btn); color: var(--btn-ink); padding: 8px 14px; border-radius: 8px; }
+.skip:focus { left: 8px; }
+code, pre { font-family: var(--mono); }
+
+/* Шапка – темный свод, Арти как знак, золотая "Платформа" */
+.top { background: var(--top); color: var(--top-ink); border-bottom: 2px solid var(--btn); }
+.top-row { display: flex; align-items: center; gap: 12px 28px; min-height: 68px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--top-ink); text-decoration: none; }
+.brand img { width: 36px; height: auto; }
+.brand b { display: block; font-family: var(--carved); font-size: 20px; line-height: 1.1; }
+.brand small { display: block; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--btn); }
+.brand:hover { color: var(--top-ink); }
+.top nav { display: flex; gap: 22px; flex: 1; }
+.top nav a { color: var(--top-ink); text-decoration: none; font-size: 16px; }
+.top nav a:hover { color: var(--btn-hover); }
+.top nav a[aria-current="page"] { color: var(--btn); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 22px; border: 1px solid transparent; border-radius: 999px; background: var(--btn); color: var(--btn-ink); font: inherit; font-size: 16px; font-weight: 700; text-decoration: none; box-shadow: var(--shadow); cursor: pointer; }
+.btn:hover { background: var(--btn-hover); color: var(--btn-ink); }
+.btn:disabled { opacity: .55; cursor: default; }
+.btn:disabled:hover { background: var(--btn); }
+.btn-sm { min-height: 40px; padding: 0 18px; }
+.btn-ghost { background: var(--raised); border-color: var(--line-strong); font-weight: 600; box-shadow: none; }
+.btn-ghost:hover, .btn-ghost:disabled:hover { background: var(--gold-soft); }
+.btn-link { background: none; border: 0; padding: 0; min-height: 32px; color: var(--accent); font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.btn-link:hover { color: var(--accent-hover); }
+
+.page { padding-top: 44px; }
+.hero { padding-top: 40px; padding-bottom: 8px; }
+.crumbs { font-size: 14px; color: var(--ink-3); margin: 0 0 10px; }
+.crumbs a { color: var(--ink-3); }
+.factline { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 18px; padding: 0; margin: 12px 0 0; font-size: 14px; color: var(--ink-3); }
+.factline li + li::before { content: "·"; margin-right: 18px; color: var(--line-strong); }
+
+/* Каталог инструментов */
+.tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 18px; padding: 0; list-style: none; }
+.tools li { max-width: none; }
+.tool { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 20px 22px; background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); color: var(--ink); text-decoration: none; }
+a.tool:hover { border-color: var(--btn); color: var(--ink); }
+.tool h3 { font-size: 21px; }
+.tool p { margin: 0; color: var(--ink-2); font-size: 15px; }
+.tool .go { margin-top: auto; padding-top: 6px; color: var(--accent); font-weight: 700; font-size: 15px; }
+.tool.soon { background: transparent; border-style: dashed; border-color: var(--line-strong); box-shadow: none; }
+.tool.soon h3 { color: var(--ink-2); }
+.badge { align-self: flex-start; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--gold-soft); color: var(--accent); border: 1px solid var(--btn); }
+
+/* Спокойный блок о курсах */
+.band { background: var(--gold-soft); border-top: 1px solid var(--btn); border-bottom: 1px solid var(--btn); padding: 26px 0; margin-top: 48px; }
+.band p { margin: 0; font-size: 17px; color: var(--ink-2); }
+
+/* ── Песочница ── */
+.sandbox { padding-top: 20px; }
+.sb-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; align-items: start; }
+.sb-main { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.panel { background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+.panel + .panel { margin-top: 14px; }
+.cap { margin: 0 0 6px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+.panel ul.reqs { margin: 6px 0 0; padding-left: 18px; font-size: 14px; color: var(--ink-2); }
+.panel ul.reqs li { margin: 2px 0; }
+.panel p { margin: 0; font-size: 14px; color: var(--ink-2); }
+.panel p.after { margin-top: 8px; }
+.panel p.schema-hint { margin-bottom: 8px; color: var(--ink-3); font-size: 13px; }
+
+.picker { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.picker label { font-weight: 600; font-size: 15px; }
+.picker select { flex: 1; min-width: 0; max-width: 460px; min-height: 40px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--raised); color: var(--ink); font: inherit; font-size: 15px; }
+.example-note { margin: -4px 0 0; font-size: 14px; color: var(--ink-3); min-height: 1.4em; }
+
+.sql-box { position: relative; background: var(--raised); border: 1px solid var(--line-strong); border-radius: var(--radius-sm); }
+.sql-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.sql-layer { display: block; margin: 0; padding: 12px 14px; border: 0; font-family: var(--mono); font-size: 14px; line-height: 1.6; letter-spacing: 0; tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere; word-break: normal; }
+pre.sql-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; color: var(--ink); }
+textarea.sql-layer { position: relative; width: 100%; min-height: 190px; resize: none; overflow: hidden; background: transparent; color: transparent; caret-color: var(--ink); outline: none; }
+textarea.sql-layer::selection { background: rgb(217 173 51 / 0.45); color: transparent; }
+textarea.sql-layer:disabled { opacity: .6; }
+@media (pointer: coarse) { .sql-layer { font-size: 16px; } }
+.sql-key { color: var(--code-key); font-weight: 700; }
+.sql-name { color: var(--code-name); }
+.sql-str, .sql-num { color: var(--code-str); }
+.sql-note { color: var(--code-note); font-style: italic; }
+
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.kbd-hint { font-size: 13px; color: var(--ink-3); }
+.share-out { width: 100%; min-height: 40px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--raised); font: 14px var(--mono); color: var(--ink-2); }
+.status { min-height: 1.5em; font-size: 14px; color: var(--ink-3); }
+.notice { padding: 10px 14px; border-radius: var(--radius-sm); background: var(--gold-soft); border: 1px solid var(--btn); font-size: 15px; color: var(--ink); }
+.error { padding: 10px 14px; border-radius: var(--radius-sm); background: var(--danger-soft); border: 1px solid rgb(155 44 31 / .35); color: var(--danger); font-size: 15px; }
+.error code { display: block; margin-top: 4px; font-size: 13px; color: var(--ink-2); overflow-wrap: anywhere; }
+.translated { font-size: 14px; color: var(--ink-3); margin: 0; }
+.translated code { display: block; margin-top: 4px; padding: 8px 12px; border-radius: var(--radius-sm); background: var(--sunken); color: var(--ink-2); white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.result { overflow: auto; max-height: 560px; background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius-sm); }
+.result table { border-collapse: collapse; width: 100%; font-family: var(--mono); font-size: 13px; }
+.result th { position: sticky; top: 0; background: var(--sunken); text-align: left; font-weight: 600; color: var(--ink-2); }
+.result th, .result td { padding: 6px 12px; white-space: nowrap; border-bottom: 1px solid var(--line); }
+.result td { color: var(--ink); }
+.result td.null { color: var(--ink-3); font-style: italic; }
+.result .empty { margin: 0; padding: 10px 12px; font-size: 14px; color: var(--ink-3); }
+
+.schema ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.schema li { font-family: var(--mono); font-size: 13px; line-height: 1.55; color: var(--ink-2); max-width: none; }
+.schema .cols { padding-left: 12px; }
+.schema button { background: none; border: 0; padding: 1px 2px; margin: 0; font: inherit; color: inherit; cursor: pointer; border-radius: 4px; }
+.schema button:hover { text-decoration: underline; color: var(--ink); }
+.schema button.t { color: var(--ink); font-weight: 700; }
+.schema .mine { font-family: var(--font); font-size: 12px; color: var(--accent); margin-left: 6px; }
+.schema .sep { color: var(--ink-3); }
+details.schema-narrow { display: none; background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 14px; }
+details.schema-narrow summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--ink-2); min-height: 32px; display: flex; align-items: center; }
+details.schema-narrow .schema { padding: 6px 0 4px; }
+
+/* Различия движков */
+.diffs { list-style: none; margin: 18px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.diffs > li { border-bottom: 1px solid var(--line); max-width: none; }
+.diffs summary { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 8px 0; cursor: pointer; list-style: none; font-weight: 600; }
+.diffs summary::-webkit-details-marker { display: none; }
+.diffs summary::after { content: "+"; margin-left: auto; color: var(--accent); font-weight: 700; font-size: 20px; line-height: 1; }
+.diffs details[open] summary::after { content: "–"; }
+.diffs .body { padding: 0 0 16px; }
+.diffs pre { margin: 0; padding: 8px 12px; border-radius: var(--radius-sm); background: var(--sunken); font-size: 13px; color: var(--ink-2); white-space: pre-wrap; overflow-wrap: anywhere; }
+.diffs dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 24px; margin: 10px 0 0; font-size: 15px; color: var(--ink-2); }
+.diffs dt { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+.diffs dd { margin: 2px 0 0; }
+.translations { margin-top: 26px; }
+.translations summary { cursor: pointer; font-family: var(--carved); font-size: 20px; font-weight: 700; min-height: 44px; display: flex; align-items: center; gap: 12px; list-style: none; }
+.translations summary::-webkit-details-marker { display: none; }
+.translations summary::after { content: "+"; color: var(--accent); font-family: var(--font); font-size: 20px; }
+.translations[open] summary::after { content: "–"; }
+.translations ul { list-style: none; padding: 0; margin: 12px 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.translations li { background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 14px; color: var(--ink-2); }
+.translations li code { display: block; font-size: 14px; color: var(--ink); margin-bottom: 4px; }
+
+/* Подвал – снова свод */
+.foot { background: var(--top); color: var(--top-ink-2); margin-top: 0; padding: 36px 0 40px; font-size: 15px; }
+.foot-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 28px; }
+.foot a { color: var(--top-ink); }
+.foot a:hover { color: var(--btn-hover); }
+.foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.foot-brand { display: flex; align-items: center; gap: 10px; font-family: var(--carved); font-size: 20px; color: var(--top-ink); margin-top: 0; }
+.foot-cap { font-family: var(--carved); letter-spacing: .14em; text-transform: uppercase; color: var(--btn); font-size: 13px; margin-top: 0; }
+
+@media (max-width: 1000px) {
+  .sb-grid { grid-template-columns: minmax(0, 1fr); }
+  .sb-aside .panel.only-wide { display: none; }
+  details.schema-narrow { display: block; }
+  .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .translations ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .top-row { gap: 6px 10px; padding-top: 10px; }
+  .brand { gap: 8px; }
+  .brand img { width: 30px; }
+  .top nav { order: 3; flex-basis: 100%; gap: 18px; padding-bottom: 10px; }
+  .top .btn-sm { margin-left: auto; }
+  .hero { padding-top: 24px; padding-bottom: 4px; }
+  .factline { display: grid; gap: 2px; }
+  .factline li + li::before { content: none; }
+  .brand small { font-size: 10px; letter-spacing: .08em; }
+  .brand b { font-size: 18px; }
+  .top .btn-sm { padding: 0 12px; min-height: 38px; font-size: 15px; }
+  .lead { font-size: 17px; }
+  .tools, .foot-row, .translations ul { grid-template-columns: 1fr; }
+  .diffs dl { grid-template-columns: 1fr; gap: 8px; }
+  .toolbar .btn { flex: 1 1 auto; padding: 0 16px; }
+  .kbd-hint { display: none; }
+  textarea.sql-layer { min-height: 150px; }
+}
+@media (pointer: coarse) { .kbd-hint { display: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

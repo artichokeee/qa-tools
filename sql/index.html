@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQL-песочница для тестировщиков – база интернет-магазина в браузере</title>
+<meta name="description" content="SQL-песочница в браузере без регистрации: учебная база интернет-магазина с багами в данных, примеры запросов для тестировщиков и сравнение MySQL, SQLite и PostgreSQL.">
+<link rel="canonical" href="https://artichokeee.github.io/qa-tools/sql/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Инструменты тестировщика – Rusau Learn">
+<meta property="og:title" content="SQL-песочница для тестировщиков">
+<meta property="og:description" content="Учебная база интернет-магазина прямо в браузере: запросы, примеры для тестировщиков и баги в данных, которые нужно найти.">
+<meta property="og:url" content="https://artichokeee.github.io/qa-tools/sql/">
+<meta property="og:image" content="https://artichokeee.github.io/qa-tools/docs/sql-desktop.png">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="../assets/mark.png">
+<link rel="preload" href="../assets/fonts/golos.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [
+  {"@type": "WebApplication", "name": "SQL-песочница для тестировщиков", "url": "https://artichokeee.github.io/qa-tools/sql/", "description": "Учебная база интернет-магазина в браузере: SQL-запросы без регистрации, примеры для тестировщиков и баги в данных для поиска.", "applicationCategory": "EducationalApplication", "operatingSystem": "Любой современный браузер", "inLanguage": "ru", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": 0, "priceCurrency": "RUB"}, "author": {"@type": "Person", "name": "Артем Русов", "alternateName": "Artsiom Rusau", "url": "https://artichokeee.github.io/"}, "publisher": {"@type": "EducationalOrganization", "name": "Rusau Learn", "url": "https://learn.rusau.net"}},
+  {"@type": "BreadcrumbList", "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Инструменты тестировщика", "item": "https://artichokeee.github.io/qa-tools/"},
+    {"@type": "ListItem", "position": 2, "name": "SQL-песочница", "item": "https://artichokeee.github.io/qa-tools/sql/"}
+  ]}
+]}</script>
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#sql">К полю запроса</a>
+<header class="top"><div class="wrap top-row">
+  <a class="brand" href="../"><img src="../assets/mark.png" alt="" aria-hidden="true" width="36" height="47"><span><b>Rusau Learn</b><small>инструменты тестировщика</small></span></a>
+  <nav aria-label="Разделы"><a href="../">Инструменты</a><a href="./" aria-current="page">SQL-песочница</a></nav>
+  <a class="btn btn-sm" href="https://learn.rusau.net/?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">Платформа</a>
+</div></header>
+
+<main id="main">
+<section class="wrap hero">
+  <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Инструменты</a> / <span>SQL-песочница</span></nav>
+  <h1>SQL-песочница для тестировщиков</h1>
+  <p class="lead">Учебная база интернет-магазина прямо в браузере. Пишите запросы, меняйте данные и ищите баги – кнопка вернет базу к исходной.</p>
+  <ul class="factline">
+    <li id="engine">SQLite в браузере</li>
+    <li>6 таблиц, 271 строка</li>
+    <li>Без регистрации, база живет в этой вкладке</li>
+  </ul>
+</section>
+
+<section class="wrap sandbox" aria-labelledby="sandbox-title">
+  <h2 id="sandbox-title" class="sr-only">Запрос к базе</h2>
+  <div class="sb-grid">
+    <div class="sb-main">
+      <details class="schema-narrow">
+        <summary>Таблицы и колонки – нажмите имя, чтобы подставить</summary>
+        <div class="schema" data-schema></div>
+      </details>
+
+      <div class="picker">
+        <label for="example">Пример</label>
+        <select id="example">
+          <option value="">Выберите запрос…</option>
+        </select>
+      </div>
+      <p class="example-note" id="example-note"></p>
+
+      <div class="sql-box">
+        <pre class="sql-layer" id="hl" aria-hidden="true"></pre>
+        <textarea class="sql-layer" id="sql" rows="8" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Запрос SQL" placeholder="SELECT ..."></textarea>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn" type="button" id="run" disabled>Выполнить</button>
+        <button class="btn btn-ghost" type="button" id="share">Ссылка на запрос</button>
+        <button class="btn btn-ghost" type="button" id="reset" disabled>Вернуть базу к исходной</button>
+        <span class="kbd-hint" id="hint">База загружается…</span>
+      </div>
+      <input class="share-out" id="share-out" type="text" readonly aria-label="Ссылка на запрос" hidden>
+
+      <div class="status" id="status" aria-live="polite"></div>
+      <div class="notice" id="notice" role="status" hidden></div>
+      <p class="translated" id="translated" hidden></p>
+      <div class="error" id="error" role="alert" hidden></div>
+      <div id="result"></div>
+    </div>
+
+    <aside class="sb-aside" aria-label="Таблицы и задание">
+      <div class="panel only-wide">
+        <p class="cap">Таблицы</p>
+        <p class="schema-hint">Нажмите имя, чтобы подставить в запрос.</p>
+        <div class="schema" data-schema></div>
+      </div>
+      <div class="panel">
+        <p class="cap">Найди баги в данных</p>
+        <p>В базе нарочно оставлены ошибки. Каждая нарушает одно из требований:</p>
+        <ul class="reqs">
+          <li>email покупателя обязателен и уникален;</li>
+          <li>цена товара больше нуля;</li>
+          <li>в заказе есть хотя бы одна позиция;</li>
+          <li>позиция ссылается на существующий товар;</li>
+          <li>заказ не раньше регистрации покупателя;</li>
+          <li>total равен сумме quantity * price позиций;</li>
+          <li>status – new, paid, shipped, delivered или cancelled;</li>
+          <li>оценка в отзыве – от 1 до 5.</li>
+        </ul>
+        <p class="after">Часть багов находят примеры из списка, остальные – ваши.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="wrap page" id="engines" aria-labelledby="engines-title">
+  <h2 id="engines-title">Где тот же запрос даст другой ответ</h2>
+  <p class="muted">Песочница считает на SQLite. На работе чаще встретятся PostgreSQL или MySQL, а задания на Stepik проверяет MySQL 8.0. Почти все запросы работают одинаково на всех трех, но в строках ниже ответы расходятся. Колонка SQLite снята прогоном здесь, MySQL и PostgreSQL описаны по документации и настройкам по умолчанию.</p>
+  <ul class="diffs" id="diffs"></ul>
+  <details class="translations">
+    <summary>Что переписывается само</summary>
+    <p class="muted">Чтобы запросы, написанные под MySQL, выполнялись на SQLite, песочница перед запуском заменяет четыре конструкции и показывает, во что переписала запрос. Остальное выполняется как написано.</p>
+    <ul id="translations"></ul>
+  </details>
+</section>
+
+<section class="band"><div class="wrap">
+  <p>Учиться SQL на задачах из работы тестировщика – курс <a href="https://learn.rusau.net/catalog/sql-rabochiy-den?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-sql">"Рабочий день тестировщика: тренажер по SQL и задачи на практике"</a> на платформе Rusau Learn.</p>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap foot-row">
+  <div>
+    <p class="foot-brand"><img src="../assets/mark.png" alt="" aria-hidden="true" width="30" height="40"> Rusau Learn</p>
+    <p>Инструменты собрал Артем Русов – инженер по тестированию и автор курсов. Курсы идут на платформе для обучения тестировщиков <a href="https://learn.rusau.net/?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">Rusau Learn</a>.</p>
+  </div>
+  <div><p class="foot-cap">Инструменты</p><ul>
+    <li><a href="./">SQL-песочница</a></li>
+    <li><a href="../">Все инструменты</a></li>
+  </ul></div>
+  <div><p class="foot-cap">Ссылки</p><ul>
+    <li><a href="https://learn.rusau.net/catalog/sql-rabochiy-den?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-sql">Курс SQL</a></li>
+    <li><a href="https://github.com/artichokeee/qa-tools">Исходный код на GitHub</a></li>
+    <li><a href="https://artichokeee.github.io/">Артем Русов</a></li>
+  </ul></div>
+</div></footer>
+</body>
+</html>
