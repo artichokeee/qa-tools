@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Инструменты тестировщика – бесплатно, в браузере | Rusau Learn</title>
-<meta name="description" content="Бесплатные инструменты для практики тестировщика: работают в браузере, без регистрации и установки. Первый – SQL-песочница с учебной базой интернет-магазина.">
+<meta name="description" content="Бесплатные инструменты для практики тестировщика: SQL-песочница, кроссворд по терминам, калькулятор граничных значений и поиск багов на странице. В браузере, без регистрации.">
 <link rel="canonical" href="https://artichokeee.github.io/qa-tools/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Инструменты тестировщика – Rusau Learn">
@@ -19,7 +19,10 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [
   {"@type": "CollectionPage", "name": "Инструменты тестировщика", "url": "https://artichokeee.github.io/qa-tools/", "inLanguage": "ru", "author": {"@type": "Person", "name": "Артем Русов", "alternateName": "Artsiom Rusau", "url": "https://artichokeee.github.io/"}, "publisher": {"@type": "EducationalOrganization", "name": "Rusau Learn", "url": "https://learn.rusau.net"},
    "mainEntity": {"@type": "ItemList", "itemListElement": [
-     {"@type": "ListItem", "position": 1, "name": "SQL-песочница для тестировщиков", "url": "https://artichokeee.github.io/qa-tools/sql/"}
+     {"@type": "ListItem", "position": 1, "name": "SQL-песочница для тестировщиков", "url": "https://artichokeee.github.io/qa-tools/sql/"},
+     {"@type": "ListItem", "position": 2, "name": "Кроссворд тестировщика", "url": "https://artichokeee.github.io/qa-tools/crossword/"},
+     {"@type": "ListItem", "position": 3, "name": "Калькулятор граничных значений", "url": "https://artichokeee.github.io/qa-tools/bounds/"},
+     {"@type": "ListItem", "position": 4, "name": "Найди баги на странице", "url": "https://artichokeee.github.io/qa-tools/bugs/"}
    ]}},
   {"@type": "BreadcrumbList", "itemListElement": [
     {"@type": "ListItem", "position": 1, "name": "Инструменты тестировщика", "item": "https://artichokeee.github.io/qa-tools/"}
@@ -30,7 +33,7 @@
 <a class="skip" href="#main">К содержанию</a>
 <header class="top"><div class="wrap top-row">
   <a class="brand" href="./"><img src="assets/mark.png" alt="" aria-hidden="true" width="36" height="47"><span><b>Rusau Learn</b><small>инструменты тестировщика</small></span></a>
-  <nav aria-label="Разделы"><a href="./" aria-current="page">Инструменты</a><a href="sql/">SQL-песочница</a></nav>
+  <nav aria-label="Разделы"><a href="./" aria-current="page">Инструменты</a></nav>
   <a class="btn btn-sm" href="https://learn.rusau.net/?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">Платформа</a>
 </div></header>
 
@@ -41,35 +44,37 @@
 </section>
 
 <section class="wrap page" aria-labelledby="tools-title">
-  <h2 id="tools-title">Готово</h2>
-  <ul class="tools">
+  <h2 id="tools-title">Инструменты</h2>
+  <ul class="tools tools-2">
     <li><a class="tool" href="sql/">
       <span class="badge">SQL</span>
       <h3>SQL-песочница</h3>
       <p>Учебная база интернет-магазина в браузере: примеры запросов для тестировщика, баги в данных, которые нужно найти, и сравнение MySQL, SQLite и PostgreSQL.</p>
       <span class="go">Открыть</span>
     </a></li>
-  </ul>
-</section>
-
-<section class="wrap page" aria-labelledby="soon-title">
-  <h2 id="soon-title">Готовятся</h2>
-  <ul class="tools">
-    <li><div class="tool soon">
-      <span class="badge">Тест-дизайн</span>
-      <h3>Pairwise</h3>
-      <p>Генератор попарных комбинаций параметров: меньше тестов при том же покрытии пар.</p>
-    </div></li>
-    <li><div class="tool soon">
+    <li><a class="tool" href="crossword/">
       <span class="badge">Термины</span>
-      <h3>Кроссворд</h3>
-      <p>Кроссворд по терминам тестирования для повторения перед собеседованием.</p>
-    </div></li>
+      <h3>Кроссворд тестировщика</h3>
+      <p>Термины тестирования ПО по определениям: кроссворд дня и сколько угодно случайных. Проверка ответов и подсказка буквы.</p>
+      <span class="go">Открыть</span>
+    </a></li>
+    <li><a class="tool" href="bounds/">
+      <span class="badge">Тест-дизайн</span>
+      <h3>Граничные значения</h3>
+      <p>Калькулятор для числового диапазона: значения по двум и трем точкам и классы эквивалентности, в том числе для дробного шага.</p>
+      <span class="go">Открыть</span>
+    </a></li>
+    <li><a class="tool" href="bugs/">
+      <span class="badge">Интерфейс</span>
+      <h3>Найди баги на странице</h3>
+      <p>Страница интернет-магазина с заложенными ошибками интерфейса. Нажимайте на то, что выглядит неправильно, – находки проверяются сразу.</p>
+      <span class="go">Открыть</span>
+    </a></li>
   </ul>
 </section>
 
 <section class="band"><div class="wrap">
-  <p>Учиться SQL на задачах из работы тестировщика – курс <a href="https://learn.rusau.net/catalog/sql-rabochiy-den?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-sql">"Рабочий день тестировщика: тренажер по SQL и задачи на практике"</a> на платформе Rusau Learn.</p>
+  <p>Начать с нуля – бесплатный курс <a href="https://learn.rusau.net/catalog/testirovanie-po-bazovyy?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">"Тестирование с нуля. Теория+Практика. Базовый курс тестировщика"</a>. SQL на задачах из работы тестировщика – курс <a href="https://learn.rusau.net/catalog/sql-rabochiy-den?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-sql">"Рабочий день тестировщика: тренажер по SQL и задачи на практике"</a>. Оба – на платформе Rusau Learn.</p>
 </div></section>
 </main>
 
@@ -80,8 +85,12 @@
   </div>
   <div><p class="foot-cap">Инструменты</p><ul>
     <li><a href="sql/">SQL-песочница</a></li>
+    <li><a href="crossword/">Кроссворд</a></li>
+    <li><a href="bounds/">Граничные значения</a></li>
+    <li><a href="bugs/">Найди баги</a></li>
   </ul></div>
   <div><p class="foot-cap">Ссылки</p><ul>
+    <li><a href="https://learn.rusau.net/catalog/testirovanie-po-bazovyy?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">Бесплатный базовый курс</a></li>
     <li><a href="https://learn.rusau.net/catalog/sql-rabochiy-den?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-sql">Курс SQL</a></li>
     <li><a href="https://github.com/artichokeee/qa-tools">Исходный код на GitHub</a></li>
     <li><a href="https://artichokeee.github.io/">Артем Русов</a></li>

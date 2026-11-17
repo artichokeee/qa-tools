@@ -214,3 +214,7 @@ details.schema-narrow .schema { padding: 6px 0 4px; }
 /* Schema diagram – keeps its own size on a phone and scrolls sideways instead of shrinking to unreadable */
 .schema-fig { overflow-x: auto; background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin-top: 12px; }
 .schema-fig img { display: block; min-width: 720px; max-width: 930px; width: 100%; height: auto; }
+
+/* Четыре карточки – два ряда по две, а не три и одна */
+.tools.tools-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 720px) { .tools.tools-2 { grid-template-columns: 1fr; } }
