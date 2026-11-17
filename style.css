@@ -210,3 +210,7 @@ details.schema-narrow .schema { padding: 6px 0 4px; }
 }
 @media (pointer: coarse) { .kbd-hint { display: none; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Schema diagram – keeps its own size on a phone and scrolls sideways instead of shrinking to unreadable */
+.schema-fig { overflow-x: auto; background: var(--raised); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin-top: 12px; }
+.schema-fig img { display: block; min-width: 720px; max-width: 930px; width: 100%; height: auto; }

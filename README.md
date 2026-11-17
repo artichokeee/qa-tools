@@ -27,6 +27,10 @@ https://artichokeee.github.io/qa-tools/sql/
 
 Шесть таблиц, 271 строка: `categories`, `products`, `customers`, `orders`, `order_items`, `reviews`. Данные выдуманы и собраны скриптом [`scripts/gen-shop.mjs`](scripts/gen-shop.mjs) с фиксированным сидом, результат – [`sql/shop.sql`](sql/shop.sql).
 
+![Схема базы: таблицы, первичные и внешние ключи](sql/schema.svg)
+
+Схему рисует [`scripts/gen-schema.py`](scripts/gen-schema.py).
+
 ### Найди баги в данных
 
 В базу нарочно заложены девять ошибок. Требования, которые они нарушают:

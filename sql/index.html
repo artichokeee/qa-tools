@@ -52,6 +52,7 @@
       <details class="schema-narrow">
         <summary>Таблицы и колонки – нажмите имя, чтобы подставить</summary>
         <div class="schema" data-schema></div>
+        <p class="schema-hint"><a href="#shema">Схема базы со связями</a></p>
       </details>
 
       <div class="picker">
@@ -85,7 +86,7 @@
     <aside class="sb-aside" aria-label="Таблицы и задание">
       <div class="panel only-wide">
         <p class="cap">Таблицы</p>
-        <p class="schema-hint">Нажмите имя, чтобы подставить в запрос.</p>
+        <p class="schema-hint">Нажмите имя, чтобы подставить в запрос. Связи между таблицами – на <a href="#shema">схеме базы</a>.</p>
         <div class="schema" data-schema></div>
       </div>
       <div class="panel">
@@ -105,6 +106,12 @@
       </div>
     </aside>
   </div>
+</section>
+
+<section class="wrap page" id="shema" aria-labelledby="shema-title">
+  <h2 id="shema-title">Схема базы</h2>
+  <p class="muted">PK – первичный ключ, FK – внешний ключ. Стрелка идет от внешнего ключа к таблице, на которую он ссылается: по этим парам и пишут JOIN. Например, <code>orders.customer_id</code> связывает заказ с покупателем.</p>
+  <div class="schema-fig"><img src="schema.svg" width="930" height="458" alt="Схема базы: categories, products, order_items, orders, customers и reviews со связями по внешним ключам"></div>
 </section>
 
 <section class="wrap page" id="engines" aria-labelledby="engines-title">
