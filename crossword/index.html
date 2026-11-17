@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кроссворд тестировщика – термины тестирования ПО онлайн</title>
+<meta name="description" content="Кроссворд по терминам тестирования ПО: новый каждый день и сколько угодно случайных. Проверка ответов и подсказка буквы, без регистрации.">
+<link rel="canonical" href="https://artichokeee.github.io/qa-tools/crossword/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Инструменты тестировщика – Rusau Learn">
+<meta property="og:title" content="Кроссворд тестировщика">
+<meta property="og:description" content="Термины тестирования ПО в кроссворде: новый каждый день, проверка и подсказки прямо в браузере.">
+<meta property="og:url" content="https://artichokeee.github.io/qa-tools/crossword/">
+<meta property="og:image" content="https://artichokeee.github.io/qa-tools/docs/crossword-desktop.png">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="../assets/mark.png">
+<link rel="preload" href="../assets/fonts/golos.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="crossword.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [
+  {"@type": "WebApplication", "name": "Кроссворд тестировщика", "url": "https://artichokeee.github.io/qa-tools/crossword/", "description": "Кроссворд по терминам тестирования ПО: кроссворд дня и случайные, проверка ответов и подсказки в браузере.", "applicationCategory": "GameApplication", "operatingSystem": "Любой современный браузер", "inLanguage": "ru", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": 0, "priceCurrency": "RUB"}, "author": {"@type": "Person", "name": "Артем Русов", "alternateName": "Artsiom Rusau", "url": "https://artichokeee.github.io/"}, "publisher": {"@type": "EducationalOrganization", "name": "Rusau Learn", "url": "https://learn.rusau.net"}},
+  {"@type": "BreadcrumbList", "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Инструменты тестировщика", "item": "https://artichokeee.github.io/qa-tools/"},
+    {"@type": "ListItem", "position": 2, "name": "Кроссворд", "item": "https://artichokeee.github.io/qa-tools/crossword/"}
+  ]}
+]}</script>
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#cw-board">К кроссворду</a>
+<header class="top"><div class="wrap top-row">
+  <a class="brand" href="../"><img src="../assets/mark.png" alt="" aria-hidden="true" width="36" height="47"><span><b>Rusau Learn</b><small>инструменты тестировщика</small></span></a>
+  <nav aria-label="Разделы"><a href="../">Инструменты</a><a href="./" aria-current="page">Кроссворд</a></nav>
+  <a class="btn btn-sm" href="https://learn.rusau.net/?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">Платформа</a>
+</div></header>
+
+<main id="main">
+<section class="wrap hero">
+  <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Инструменты</a> / <span>Кроссворд</span></nav>
+  <h1>Кроссворд тестировщика</h1>
+  <p class="lead">Термины тестирования ПО по определениям. Каждый день новый кроссворд, а кнопка "Новый кроссворд" соберет еще один.</p>
+</section>
+
+<section class="wrap cw" aria-labelledby="cw-title">
+  <div class="cw-grid">
+    <div class="cw-play">
+      <h2 id="cw-title" class="cw-title">Кроссворд</h2>
+      <p class="cw-current" id="cw-current" aria-live="polite">Загрузка…</p>
+      <div class="cw-board-wrap">
+        <div class="cw-board" id="cw-board" role="group" aria-label="Сетка кроссворда"></div>
+      </div>
+      <div class="toolbar cw-tools">
+        <button class="btn" type="button" id="cw-check">Проверить</button>
+        <button class="btn btn-ghost" type="button" id="cw-hint">Подсказать букву</button>
+        <button class="btn btn-ghost" type="button" id="cw-new">Новый кроссворд</button>
+        <button class="btn-link" type="button" id="cw-daily" hidden>Кроссворд дня</button>
+      </div>
+      <p class="status cw-status" id="cw-status" aria-live="polite"></p>
+      <p class="muted cw-help">Нажмите на клетку и печатайте. Повторное нажатие на ту же клетку меняет направление. Стрелки двигают по сетке, Backspace стирает, Tab – к следующему слову. Буквы можно набирать и в английской раскладке.</p>
+    </div>
+    <div class="cw-clues">
+      <div class="panel">
+        <p class="cap">По горизонтали</p>
+        <ol class="cw-list" id="cw-across"></ol>
+      </div>
+      <div class="panel">
+        <p class="cap">По вертикали</p>
+        <ol class="cw-list" id="cw-down"></ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap page" aria-labelledby="cw-about">
+  <h2 id="cw-about">О словаре</h2>
+  <p class="muted">В словаре 88 терминов тестирования, от 4 до 9 букв. Определения написаны для этого кроссворда, словарь открыт: <a href="https://github.com/artichokeee/qa-tools/blob/main/data/glossary.json">data/glossary.json</a>. Нашли неточность – напишите в issues на GitHub.</p>
+</section>
+
+<section class="band"><div class="wrap">
+  <p>Термины из кроссворда разбираются по порядку в бесплатном курсе <a href="https://learn.rusau.net/catalog/testirovanie-po-bazovyy?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-crossword">"Тестирование с нуля. Теория+Практика. Базовый курс тестировщика"</a>. Остальные курсы – на платформе <a href="https://learn.rusau.net/?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-crossword">Rusau Learn</a>.</p>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap foot-row">
+  <div>
+    <p class="foot-brand"><img src="../assets/mark.png" alt="" aria-hidden="true" width="30" height="40"> Rusau Learn</p>
+    <p>Инструменты собрал Артем Русов – инженер по тестированию и автор курсов. Курсы идут на платформе для обучения тестировщиков <a href="https://learn.rusau.net/?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">Rusau Learn</a>.</p>
+  </div>
+  <div><p class="foot-cap">Инструменты</p><ul>
+    <li><a href="../sql/">SQL-песочница</a></li>
+    <li><a href="./">Кроссворд</a></li>
+    <li><a href="../bounds/">Граничные значения</a></li>
+    <li><a href="../bugs/">Найди баги</a></li>
+    <li><a href="../">Все инструменты</a></li>
+  </ul></div>
+  <div><p class="foot-cap">Ссылки</p><ul>
+    <li><a href="https://learn.rusau.net/catalog/testirovanie-po-bazovyy?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-crossword">Бесплатный базовый курс</a></li>
+    <li><a href="https://github.com/artichokeee/qa-tools">Исходный код на GitHub</a></li>
+    <li><a href="https://artichokeee.github.io/">Артем Русов</a></li>
+  </ul></div>
+</div></footer>
+</body>
+</html>
