@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Калькулятор граничных значений – тест-дизайн онлайн</title>
+<meta name="description" content="Калькулятор граничных значений для тестировщика: минимум, максимум и шаг, в том числе дробный. Значения по двум и трем точкам и классы эквивалентности с пояснениями.">
+<link rel="canonical" href="https://artichokeee.github.io/qa-tools/bounds/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Инструменты тестировщика – Rusau Learn">
+<meta property="og:title" content="Калькулятор граничных значений">
+<meta property="og:description" content="Граничные значения по двум и трем точкам и классы эквивалентности для любого числового диапазона.">
+<meta property="og:url" content="https://artichokeee.github.io/qa-tools/bounds/">
+<meta property="og:image" content="https://artichokeee.github.io/qa-tools/docs/bounds-desktop.png">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="../assets/mark.png">
+<link rel="preload" href="../assets/fonts/golos.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="bounds.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [
+  {"@type": "WebApplication", "name": "Калькулятор граничных значений", "url": "https://artichokeee.github.io/qa-tools/bounds/", "description": "Граничные значения по двум и трем точкам и классы эквивалентности для числового диапазона с целым или дробным шагом.", "applicationCategory": "EducationalApplication", "operatingSystem": "Любой современный браузер", "inLanguage": "ru", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": 0, "priceCurrency": "RUB"}, "author": {"@type": "Person", "name": "Артем Русов", "alternateName": "Artsiom Rusau", "url": "https://artichokeee.github.io/"}, "publisher": {"@type": "EducationalOrganization", "name": "Rusau Learn", "url": "https://learn.rusau.net"}},
+  {"@type": "BreadcrumbList", "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Инструменты тестировщика", "item": "https://artichokeee.github.io/qa-tools/"},
+    {"@type": "ListItem", "position": 2, "name": "Граничные значения", "item": "https://artichokeee.github.io/qa-tools/bounds/"}
+  ]}
+]}</script>
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#bv-min">К полям калькулятора</a>
+<header class="top"><div class="wrap top-row">
+  <a class="brand" href="../"><img src="../assets/mark.png" alt="" aria-hidden="true" width="36" height="47"><span><b>Rusau Learn</b><small>инструменты тестировщика</small></span></a>
+  <nav aria-label="Разделы"><a href="../">Инструменты</a><a href="./" aria-current="page">Граничные значения</a></nav>
+  <a class="btn btn-sm" href="https://learn.rusau.net/?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">Платформа</a>
+</div></header>
+
+<main id="main">
+<section class="wrap hero">
+  <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Инструменты</a> / <span>Граничные значения</span></nav>
+  <h1>Калькулятор граничных значений</h1>
+  <p class="lead">Введите минимум, максимум и шаг из требования – калькулятор покажет значения на границах и классы эквивалентности.</p>
+</section>
+
+<section class="wrap bv" aria-labelledby="bv-title">
+  <h2 id="bv-title" class="sr-only">Расчет</h2>
+  <div class="bv-grid">
+    <form class="panel bv-form" id="bv-form" novalidate>
+      <div class="bv-fields">
+        <label class="bv-field"><span>Минимум</span><input id="bv-min" name="min" type="text" inputmode="decimal" autocomplete="off" value="1" placeholder="например, 1"></label>
+        <label class="bv-field"><span>Максимум</span><input id="bv-max" name="max" type="text" inputmode="decimal" autocomplete="off" value="100" placeholder="например, 100"></label>
+        <label class="bv-field"><span>Шаг</span><input id="bv-step" name="step" type="text" inputmode="decimal" autocomplete="off" value="1" placeholder="как у границ"></label>
+      </div>
+      <fieldset class="bv-points">
+        <legend>Точек на каждой границе</legend>
+        <label><input type="radio" name="points" value="2" checked> Две</label>
+        <label><input type="radio" name="points" value="3"> Три</label>
+      </fieldset>
+      <button class="btn" type="submit" id="bv-run">Рассчитать</button>
+      <p class="muted bv-help">Шаг – наименьшая разница между соседними допустимыми значениями: 1 для целых, 0,01 для копеек. Пустой шаг берется по точности границ.</p>
+    </form>
+    <div class="bv-out" id="bv-out" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="wrap page" aria-labelledby="bv-how">
+  <h2 id="bv-how">Как читать результат</h2>
+  <ul class="bv-how">
+    <li><b>Две точки</b> – сама граница и ближайшее значение за ней: для диапазона от 1 до 100 это 0, 1, 100, 101.</li>
+    <li><b>Три точки</b> – еще и ближайшее значение внутри: 0, 1, 2, 99, 100, 101. Так ловят ошибку, когда в коде стоит "&lt;" вместо "&lt;=" или граница сдвинута на шаг.</li>
+    <li><b>Классы эквивалентности</b> – ниже, внутри и выше диапазона. Программа одинаково обрабатывает все значения одного класса, поэтому из каждого берут одно.</li>
+  </ul>
+</section>
+
+<section class="band"><div class="wrap">
+  <p>Практика на задачах с разбором – в тренажерах: курс <a href="https://learn.rusau.net/catalog/prakticheskie-trenazhery?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-bounds">"Тестирование ПО. Тренажеры для тестировщика с ИИ"</a>. Тест-дизайн с самого начала – в бесплатном курсе <a href="https://learn.rusau.net/catalog/testirovanie-po-bazovyy?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-bounds">"Тестирование с нуля. Теория+Практика. Базовый курс тестировщика"</a> на платформе Rusau Learn.</p>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap foot-row">
+  <div>
+    <p class="foot-brand"><img src="../assets/mark.png" alt="" aria-hidden="true" width="30" height="40"> Rusau Learn</p>
+    <p>Инструменты собрал Артем Русов – инженер по тестированию и автор курсов. Курсы идут на платформе для обучения тестировщиков <a href="https://learn.rusau.net/?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools">Rusau Learn</a>.</p>
+  </div>
+  <div><p class="foot-cap">Инструменты</p><ul>
+    <li><a href="../sql/">SQL-песочница</a></li>
+    <li><a href="../crossword/">Кроссворд</a></li>
+    <li><a href="./">Граничные значения</a></li>
+    <li><a href="../bugs/">Найди баги</a></li>
+    <li><a href="../">Все инструменты</a></li>
+  </ul></div>
+  <div><p class="foot-cap">Ссылки</p><ul>
+    <li><a href="https://learn.rusau.net/catalog/prakticheskie-trenazhery?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=gh-qa-tools-bounds">Курс с тренажерами</a></li>
+    <li><a href="https://github.com/artichokeee/qa-tools">Исходный код на GitHub</a></li>
+    <li><a href="https://artichokeee.github.io/">Артем Русов</a></li>
+  </ul></div>
+</div></footer>
+</body>
+</html>

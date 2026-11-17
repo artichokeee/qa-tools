@@ -1,0 +1,49 @@
+/* Калькулятор граничных значений. Общий облик – в ../style.css. */
+.bv { padding-top: 20px; }
+.bv-grid { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 28px; align-items: start; }
+.bv-form { display: flex; flex-direction: column; gap: 14px; padding: 18px 20px; }
+.bv-fields { display: grid; gap: 12px; }
+.bv-field { display: grid; gap: 4px; min-width: 0; }
+.bv-field span, .bv-points legend { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+.bv-field input { width: 100%; min-width: 0; min-height: 44px; padding: 0 14px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--raised); color: var(--ink); font: 17px var(--mono); }
+.bv-field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.bv-points { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.bv-points legend { padding: 0; margin-bottom: 6px; }
+.bv-points label { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; font-size: 16px; cursor: pointer; }
+.bv-points input { width: 18px; height: 18px; accent-color: var(--accent); margin: 0; }
+.panel p.bv-help { font-size: 13px; color: var(--ink-3); }
+
+.bv-out { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.bv-step { margin: 0; font-size: 15px; color: var(--ink-3); }
+.bv-step b { font-family: var(--mono); color: var(--ink); }
+.bv-block { padding: 16px 20px; }
+.bv-block h3 { margin-bottom: 8px; }
+.bv-values { list-style: none; margin: 0; padding: 0; }
+.bv-values li { display: grid; grid-template-columns: 120px 96px minmax(0, 1fr); align-items: center; gap: 4px 14px; padding: 8px 0; border-top: 1px solid var(--line); max-width: none; }
+.bv-values li:first-child { border-top: 0; }
+.bv-num { font-size: 18px; font-weight: 700; color: var(--ink); overflow-wrap: anywhere; }
+.bv-note { font-size: 15px; color: var(--ink-2); }
+.bv-note code { font-size: 15px; color: var(--ink); font-weight: 700; }
+.bv-tag { justify-self: start; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; border: 1px solid; }
+.bv-tag.ok { color: var(--ok); border-color: rgb(31 111 71 / .4); background: rgb(31 111 71 / .08); }
+.bv-tag.no { color: var(--danger); border-color: rgb(155 44 31 / .35); background: var(--danger-soft); }
+.bv-classes li { grid-template-columns: 230px 96px minmax(0, 1fr); }
+.bv-cname { display: grid; }
+.bv-cname b { font-size: 15px; }
+.bv-range { font-size: 14px; color: var(--ink-3); font-family: var(--mono); }
+.bv-extra { margin: 0; }
+.bv-how { padding-left: 20px; color: var(--ink-2); }
+.bv-how li { margin: 6px 0; }
+
+@media (max-width: 1000px) {
+  .bv-grid { grid-template-columns: minmax(0, 1fr); }
+  .bv-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .bv-fields { gap: 10px; }
+  .bv-field input { width: 100%; min-width: 0; padding: 0 10px; font-size: 16px; }
+  .bv-field span { font-size: 12px; letter-spacing: .04em; }
+  .bv-values li, .bv-classes li { grid-template-columns: minmax(0, 1fr) auto; }
+  .bv-values .bv-note { grid-column: 1 / -1; }
+  .bv-form .btn { width: 100%; }
+}
