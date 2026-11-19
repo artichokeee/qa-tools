@@ -5,7 +5,7 @@
  * Зависший запрос (бесконечный WITH RECURSIVE, огромное соединение) не вешает вкладку: воркер
  * убивается по таймеру и поднимается заново с исходной базой.
  */
-import { highlightSql, sqlNames, shareUrl, queryFromSearch, ruError } from "./lib.js";
+import { highlightSql, sqlNames, shareLink, queryFromUrl, ruError } from "./lib.js";
 import { EXAMPLES, ENGINE_DIFFS, AUTO_TRANSLATED } from "./content.js";
 
 const TIMEOUT_MS = 3000;
@@ -265,7 +265,7 @@ resetBtn.addEventListener("click", () => {
 /* ── Ссылка с запросом ── */
 
 shareBtn.addEventListener("click", async () => {
-  const url = shareUrl(location.href, editor.value);
+  const url = await shareLink(location.href, editor.value);
   history.replaceState(null, "", url);
   try {
     await navigator.clipboard.writeText(url);
@@ -348,7 +348,7 @@ for (const t of AUTO_TRANSLATED) {
 
 /* ── Старт ── */
 
-const linked = queryFromSearch(location.search);
+const linked = await queryFromUrl(location.href);
 setQuery(linked ?? EXAMPLES[0].sql);
 if (!linked) {
   picker.value = "0";

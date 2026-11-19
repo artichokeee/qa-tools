@@ -48,7 +48,10 @@ export function sqlNames(tables = []) {
 /** Потолок длины запроса в ссылке: ссылка не должна превращаться в способ передать мегабайт. */
 export const MAX_LINK_SQL = 5000;
 
-/** Ссылка на эту же страницу с запросом в `?q=`. Хэш и прочие параметры отбрасываются. */
+/**
+ * Ссылка на эту же страницу с запросом в `?q=`. Хэш и прочие параметры отбрасываются.
+ * Запасной вид ссылки: для браузеров без CompressionStream и для старых ссылок, которые уже разошлись.
+ */
 export function shareUrl(pageUrl, sql) {
   const url = new URL(pageUrl);
   url.search = "";
@@ -56,6 +59,69 @@ export function shareUrl(pageUrl, sql) {
   const text = String(sql).trim();
   if (text) url.searchParams.set("q", text.slice(0, MAX_LINK_SQL));
   return url.toString();
+}
+
+/*
+ * КОРОТКАЯ ССЫЛКА – ЗАПРОС СЖАТ В ХЭШ (19.11.2026, совет читателя статьи на Хабре: в `?q=` каждый пробел,
+ * скобка и перевод строки становятся %20, %28, %0A, и ссылка выглядит как мусор). Текст сжимается
+ * deflate-raw встроенным CompressionStream и кладется в `#s=` в base64url. Библиотека не нужна, сервер
+ * тоже: страница статическая, а хэш даже не уходит в журнал GitHub Pages.
+ */
+const toB64url = (bytes) => {
+  let bin = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+};
+const fromB64url = (s) => {
+  const bin = atob(s.replace(/-/g, "+").replace(/_/g, "/") + "=".repeat((4 - (s.length % 4)) % 4));
+  return Uint8Array.from(bin, (c) => c.charCodeAt(0));
+};
+
+async function pipe(bytes, stream, limit) {
+  const reader = new Blob([bytes]).stream().pipeThrough(stream).getReader();
+  const parts = [];
+  let size = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.length;
+    // Распаковка чужой ссылки: маленький хэш может развернуться в гигабайт – обрываем на потолке.
+    if (size > limit) { await reader.cancel(); break; }
+    parts.push(value);
+  }
+  const out = new Uint8Array(Math.min(size, limit));
+  let at = 0;
+  for (const p of parts) { const n = Math.min(p.length, out.length - at); out.set(p.subarray(0, n), at); at += n; }
+  return out;
+}
+
+export const canCompress = () => typeof CompressionStream === "function" && typeof DecompressionStream === "function";
+
+/** Короткая ссылка: запрос сжат в `#s=`. Без CompressionStream – прежняя ссылка с `?q=`. */
+export async function shareLink(pageUrl, sql) {
+  const text = String(sql).trim().slice(0, MAX_LINK_SQL);
+  if (!text || !canCompress()) return shareUrl(pageUrl, text);
+  const url = new URL(pageUrl);
+  url.search = "";
+  const packed = await pipe(new TextEncoder().encode(text), new CompressionStream("deflate-raw"), Infinity);
+  url.hash = "s=" + toB64url(packed);
+  return url.toString();
+}
+
+/** Запрос из адреса: сначала короткая ссылка `#s=`, потом старая `?q=`. Битая ссылка – null. */
+export async function queryFromUrl(href) {
+  const url = new URL(href);
+  const m = /^#s=([A-Za-z0-9_-]+)$/.exec(url.hash);
+  if (m && canCompress()) {
+    try {
+      const bytes = await pipe(fromB64url(m[1]), new DecompressionStream("deflate-raw"), MAX_LINK_SQL * 4);
+      const text = new TextDecoder().decode(bytes).trim().slice(0, MAX_LINK_SQL);
+      if (text) return text;
+    } catch {
+      // Испорченная или обрезанная ссылка: показываем пример, а не ошибку.
+    }
+  }
+  return queryFromSearch(url.search);
 }
 
 /** Запрос из адреса страницы (`location.search`) или null. */

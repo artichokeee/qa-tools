@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
-import { highlightSql, sqlNames, shareUrl, queryFromSearch, ruError, MAX_LINK_SQL } from "../sql/lib.js";
+import { highlightSql, sqlNames, shareUrl, queryFromSearch, shareLink, queryFromUrl, ruError, MAX_LINK_SQL } from "../sql/lib.js";
 
 const { toSqlite } = createRequire(import.meta.url)("../sql/sql-shared.js");
 
@@ -36,6 +36,37 @@ test("ссылка: пустой запрос не дает ?q=, длинный 
   assert.equal(queryFromSearch(""), null);
   assert.equal(queryFromSearch("?q=%20%20"), null);
   assert.equal(queryFromSearch(`?q=${"a".repeat(MAX_LINK_SQL + 50)}`).length, MAX_LINK_SQL);
+});
+
+// Короткая ссылка (19.11.2026): запрос сжат в #s=. Старые ?q= ссылки уже разошлись и обязаны открываться.
+const PAGE = "https://artichokeee.github.io/qa-tools/sql/";
+const JOIN_Q = "SELECT c.id, c.full_name, COUNT(*) AS orders_count\nFROM customers c\nJOIN orders o ON o.customer_id = c.id\nGROUP BY c.id, c.full_name\nHAVING COUNT(*) >= 3\nORDER BY orders_count DESC, c.id;";
+
+test("короткая ссылка: туда и обратно без потерь, короче ?q=", async () => {
+  const q = JOIN_Q + "\n-- кириллица и знаки #&?=%";
+  const url = await shareLink(PAGE + "?q=old#engines", q);
+  assert.match(url, /^https:\/\/artichokeee\.github\.io\/qa-tools\/sql\/#s=[A-Za-z0-9_-]+$/);
+  assert.equal(await queryFromUrl(url), q);
+  assert.ok(url.length < shareUrl(PAGE, q).length, `${url.length} против ${shareUrl(PAGE, q).length}`);
+});
+
+test("короткая ссылка: старые ?q= открываются, битый хэш не ломает страницу", async () => {
+  assert.equal(await queryFromUrl(shareUrl(PAGE, JOIN_Q)), JOIN_Q);
+  assert.equal(await queryFromUrl(PAGE + "#s=не-base64!!"), null);
+  assert.equal(await queryFromUrl(PAGE + "#s=AAAA"), null);
+  assert.equal(await queryFromUrl(PAGE + "#engines"), null);
+  assert.equal(await shareLink(PAGE, "  "), PAGE);
+});
+
+test("короткая ссылка: сжатый мегабайт обрезается на потолке", async () => {
+  const bomb = await shareLink(PAGE, "a".repeat(MAX_LINK_SQL));
+  const huge = new URL(bomb);
+  // Сами собираем ссылку на 1 МБ одинаковых букв – распаковка обязана остановиться на потолке.
+  const stream = new Blob([new TextEncoder().encode("b".repeat(1_000_000))]).stream().pipeThrough(new CompressionStream("deflate-raw"));
+  const packed = new Uint8Array(await new Response(stream).arrayBuffer());
+  huge.hash = "s=" + Buffer.from(packed).toString("base64url");
+  const got = await queryFromUrl(huge.toString());
+  assert.equal(got.length, MAX_LINK_SQL);
 });
 
 // Запрос приходит чужой ссылкой и уходит в innerHTML – разметка обязана экранироваться.
